@@ -2,6 +2,8 @@ import MemorySelectionResult from "@/games/memory/MemorySelectionResult";
 import MemoryTileState from "@/games/memory/MemoryTileState";
 
 export default class MemoryTile {
+    static FULL_POINTS: number = 100;
+
     public readonly id: number;
     private readonly subject: any;
     private state: MemoryTileState = MemoryTileState.NOT_COMPLETED;
@@ -33,5 +35,9 @@ export default class MemoryTile {
 
     getState() {
         return this.state;
+    }
+
+    getPoints() {
+        return MemoryTile.FULL_POINTS;
     }
 }
