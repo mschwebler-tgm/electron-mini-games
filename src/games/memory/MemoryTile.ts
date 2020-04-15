@@ -39,8 +39,11 @@ export default class MemoryTile {
     }
 
     getPoints() {
-        const decayByRetries = Math.pow(MemoryTile.POINTS_DECAY, this.selectionCount);
+        if (this.state === MemoryTileState.NOT_COMPLETED) {
+            return 0;
+        }
 
+        const decayByRetries = Math.pow(MemoryTile.POINTS_DECAY, this.selectionCount);
         return MemoryTile.FULL_POINTS * decayByRetries;
     }
 }
