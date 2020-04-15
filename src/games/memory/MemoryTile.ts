@@ -3,6 +3,7 @@ import MemorySelectionResult from "@/games/memory/MemorySelectionResult";
 export default class MemoryTile {
     public readonly id: number;
     private readonly subject: any;
+    private selectionCount: number = 0;
 
     constructor(id: number, subject: any) {
         this.id = id;
@@ -14,5 +15,13 @@ export default class MemoryTile {
             return MemorySelectionResult.SUCCESS;
         }
         return MemorySelectionResult.FAIL;
+    }
+
+    increaseSelectionCount() {
+        this.selectionCount++;
+    }
+
+    getSelectionCount() {
+        return this.selectionCount;
     }
 }

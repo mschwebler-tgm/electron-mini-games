@@ -67,4 +67,13 @@ describe('Memory', () => {
         // @ts-ignore
         expect(selectionResult).toBe(MemorySelectionResult.FAIL);
     });
+
+    it('should increase selection count on tile', () => {
+        const memory = new Memory(['a']);
+
+        memory.select(0);
+
+        // @ts-ignore
+        expect(memory.getSelected().getSelectionCount()).toBe(1);
+    });
 });

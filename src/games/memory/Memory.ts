@@ -23,6 +23,7 @@ export default class Memory {
 
     select(id: number): MemorySelectionResult | never {
         const tileToSelect = this.getTileById(id);
+        tileToSelect.increaseSelectionCount();
         if (!this.firstSelectedTile) {
             return this.makeFirstSelection(tileToSelect);
         }
