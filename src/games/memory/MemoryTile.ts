@@ -22,6 +22,16 @@ export default class MemoryTile {
         return MemorySelectionResult.FAIL;
     }
 
+    getPoints() {
+        if (this.state === MemoryTileState.NOT_COMPLETED) {
+            return 0;
+        }
+
+        const triesBeforeSolved = this.selectionCount - 1;
+        const decayByRetries = Math.pow(MemoryTile.POINTS_DECAY, triesBeforeSolved);
+        return MemoryTile.FULL_POINTS * decayByRetries;
+    }
+
     increaseSelectionCount() {
         this.selectionCount++;
     }
@@ -34,16 +44,11 @@ export default class MemoryTile {
         this.state = MemoryTileState.COMPLETED;
     }
 
-    getState() {
-        return this.state;
+    isCompleted() {
+        return this.state === MemoryTileState.COMPLETED;
     }
 
-    getPoints() {
-        if (this.state === MemoryTileState.NOT_COMPLETED) {
-            return 0;
-        }
-
-        const decayByRetries = Math.pow(MemoryTile.POINTS_DECAY, this.selectionCount);
-        return MemoryTile.FULL_POINTS * decayByRetries;
+    getState() {
+        return this.state;
     }
 }

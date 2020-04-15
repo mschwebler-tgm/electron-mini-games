@@ -1,6 +1,7 @@
 import Memory from "@/games/memory/Memory";
 import MemorySelectionResult from "@/games/memory/MemorySelectionResult";
 import MemoryTileState from "@/games/memory/MemoryTileState";
+import MemoryTile from "@/games/memory/MemoryTile";
 
 describe('Memory', () => {
     const DUMMY_SUBJECTS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
@@ -87,5 +88,15 @@ describe('Memory', () => {
 
         // @ts-ignore
         expect(memory.getSelected().getSelectionCount()).toBe(1);
+    });
+
+    it('should increase points after correct selection', () => {
+        const memory = new Memory(['a']);
+
+        memory.select(0);
+        memory.select(1);
+
+        // @ts-ignore
+        expect(memory.getPoints()).toBe(MemoryTile.FULL_POINTS * 2);
     });
 });

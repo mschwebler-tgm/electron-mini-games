@@ -10,11 +10,10 @@ export default class Memory {
     }
 
     private initializeTiles(subjects: any[]): void {
-        const tiles = subjects.map((subject, index) => new MemoryTile(index, subject));
-        const tilesDuplicated = [...tiles, ...tiles];
-        this.shuffle(tilesDuplicated);
+        const tiles = [...subjects, ...subjects].map((subject, index) => new MemoryTile(index, subject));
+        this.shuffle(tiles);
 
-        this.tiles = tilesDuplicated;
+        this.tiles = tiles;
     }
 
     shuffle(array: any[]) {
@@ -64,5 +63,13 @@ export default class Memory {
             throw Error('No tile is currently selected');
         }
         return this.firstSelectedTile;
+    }
+
+    getPoints() {
+        return this.tiles
+            .filter(tile => tile.isCompleted())
+            .reduce((points, tile) => {
+                return points + tile.getPoints();
+            }, 0);
     }
 }

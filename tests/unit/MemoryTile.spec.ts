@@ -39,12 +39,15 @@ describe('MemoryTile', () => {
         });
 
         it('should return full amount if it is the first try', () => {
+            completedTile.increaseSelectionCount();
+
             const points = completedTile.getPoints();
 
             expect(points).toBe(MemoryTile.FULL_POINTS);
         });
 
         it('should return less amount if it is the second try', () => {
+            completedTile.increaseSelectionCount();
             completedTile.increaseSelectionCount();
 
             const points = completedTile.getPoints();
@@ -54,6 +57,7 @@ describe('MemoryTile', () => {
         });
 
         it('should return even less amount if it is the third try', () => {
+            completedTile.increaseSelectionCount();
             completedTile.increaseSelectionCount();
             completedTile.increaseSelectionCount();
 
