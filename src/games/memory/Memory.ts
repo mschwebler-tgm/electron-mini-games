@@ -24,13 +24,22 @@ export default class Memory {
     select(id: number): MemorySelectionResult | never {
         const tileToSelect = this.getTileById(id);
         if (!this.firstSelectedTile) {
-            this.firstSelectedTile = tileToSelect;
-            return MemorySelectionResult.SECOND_PICK_PENDING;
-        } else {
-            let result = this.firstSelectedTile.compareTo(tileToSelect);
-            this.firstSelectedTile = null;
-            return result;
+            return this.makeFirstSelection(tileToSelect);
         }
+
+        return this.makeSecondSelection(tileToSelect);
+    }
+
+    private makeFirstSelection(tileToSelect: MemoryTile): MemorySelectionResult {
+        this.firstSelectedTile = tileToSelect;
+        return MemorySelectionResult.SECOND_PICK_PENDING;
+    }
+
+    private makeSecondSelection(tileToSelect: MemoryTile): MemorySelectionResult {
+        // @ts-ignore
+        let result = this.firstSelectedTile.compareTo(tileToSelect);
+        this.firstSelectedTile = null;
+        return result;
     }
 
     private getTileById(id: number): MemoryTile | never {
