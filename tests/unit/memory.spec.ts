@@ -1,4 +1,5 @@
 import Memory from "@/games/memory/Memory";
+import MemorySelectionResult from "@/games/memory/MemorySelectionResult";
 
 describe('Memory', () => {
     const DUMMY_SUBJECTS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
@@ -35,5 +36,15 @@ describe('Memory', () => {
 
         expect(() => memory.select(idToSelect))
             .toThrow();
+    });
+
+    it('should return result after selection is made', () => {
+        const subjects = ['a', 'a'];
+        const memory = new Memory(subjects);
+
+        const selectionResult = memory.select(0);
+
+        // @ts-ignore
+        expect(selectionResult).toBe(MemorySelectionResult.SECOND_PICK_PENDING);
     });
 });

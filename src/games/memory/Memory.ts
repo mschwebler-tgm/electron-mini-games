@@ -1,4 +1,5 @@
 import MemoryTile from "@/games/memory/MemoryTile";
+import MemorySelectionResult from "@/games/memory/MemorySelectionResult";
 
 export default class Memory {
     private tiles: MemoryTile[] = [];
@@ -24,13 +25,15 @@ export default class Memory {
         return this.tiles;
     }
 
-    select(id: number): void | never {
+    select(id: number): MemorySelectionResult | never {
         const tileToSelect = this.tiles.find(tile => tile.id === id);
         if (!tileToSelect) {
             throw new Error(`Tile with id ${id} does not exist`);
         }
 
         this.selectedTile = tileToSelect;
+
+        return MemorySelectionResult.SECOND_PICK_PENDING;
     }
 
     getSelected(): MemoryTile | null {
