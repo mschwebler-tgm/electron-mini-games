@@ -9,14 +9,11 @@ export default class Memory {
     }
 
     private initializeTiles(subjects: any[]): void {
-        const tiles: any[] = [];
-        subjects.forEach((subject, index) => {
-            tiles.push(new MemoryTile(index, subject));
-            tiles.push(new MemoryTile(index, subject));
-        });
-        this.shuffle(tiles);
+        const tiles = subjects.map((subject, index) => new MemoryTile(index, subject));
+        const tilesDuplicated = [...tiles, ...tiles];
+        this.shuffle(tilesDuplicated);
 
-        this.tiles = tiles;
+        this.tiles = tilesDuplicated;
     }
 
     shuffle(array: any[]) {
@@ -27,7 +24,7 @@ export default class Memory {
         return this.tiles;
     }
 
-    select(id: number) {
+    select(id: number): void | never {
         const tileToSelect = this.tiles.find(tile => tile.id === id);
         if (!tileToSelect) {
             throw new Error(`Tile with id ${id} does not exist`);
