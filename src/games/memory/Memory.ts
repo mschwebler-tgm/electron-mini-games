@@ -28,7 +28,7 @@ export default class Memory {
             return this.makeFirstSelection(tileToSelect);
         }
 
-        return this.makeSecondSelection(tileToSelect);
+        return this.makeSecondSelection(tileToSelect, this.firstSelectedTile);
     }
 
     private makeFirstSelection(tileToSelect: MemoryTile): MemorySelectionResult {
@@ -36,9 +36,12 @@ export default class Memory {
         return MemorySelectionResult.SECOND_PICK_PENDING;
     }
 
-    private makeSecondSelection(tileToSelect: MemoryTile): MemorySelectionResult {
-        // @ts-ignore
-        let result = this.firstSelectedTile.compareTo(tileToSelect);
+    private makeSecondSelection(tileToSelect: MemoryTile, firstSelectedTile: MemoryTile): MemorySelectionResult {
+        const result = firstSelectedTile.compareTo(tileToSelect);
+        if (result === MemorySelectionResult.SUCCESS) {
+            firstSelectedTile.markCompleted();
+            tileToSelect.markCompleted();
+        }
         this.firstSelectedTile = null;
         return result;
     }
@@ -56,7 +59,10 @@ export default class Memory {
         return this.tiles;
     }
 
-    getSelected(): MemoryTile | null {
+    getSelected(): MemoryTile | never {
+        if (!this.firstSelectedTile) {
+            throw Error('No tile is currently selected');
+        }
         return this.firstSelectedTile;
     }
 }

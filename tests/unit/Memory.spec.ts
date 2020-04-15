@@ -1,5 +1,6 @@
 import Memory from "@/games/memory/Memory";
 import MemorySelectionResult from "@/games/memory/MemorySelectionResult";
+import MemoryTileState from "@/games/memory/MemoryTileState";
 
 describe('Memory', () => {
     const DUMMY_SUBJECTS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
@@ -66,6 +67,17 @@ describe('Memory', () => {
 
         // @ts-ignore
         expect(selectionResult).toBe(MemorySelectionResult.FAIL);
+    });
+
+    it('should mark resolved tiles as completed', () => {
+        const memory = new Memory(['a', 'a']);
+
+        memory.select(0);
+        memory.select(1);
+
+        const tiles = memory.getTiles();
+        expect(tiles[0].getState()).toBe(MemoryTileState.COMPLETED);
+        expect(tiles[1].getState()).toBe(MemoryTileState.COMPLETED);
     });
 
     it('should increase selection count on tile', () => {
