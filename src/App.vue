@@ -1,24 +1,24 @@
 <template>
-  <v-app>
-    <v-content>
-      <GamesNavigation/>
-    </v-content>
-  </v-app>
+    <v-app>
+        <v-content>
+            <router-view></router-view>
+        </v-content>
+    </v-app>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import GamesNavigation from './components/GamesNavigation.vue';
+    import Vue from 'vue';
+    import GamesNavigation from './components/GamesNavigation.vue';
 
-export default Vue.extend({
-  name: 'App',
+    export default Vue.extend({
+        name: 'App',
 
-  components: {
-    GamesNavigation,
-  },
+        components: {
+            GamesNavigation,
+        },
 
-  data: () => ({
-    //
-  }),
-});
+        data: () => ({
+            //
+        }),
+    });
 </script>

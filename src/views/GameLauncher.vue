@@ -10,5 +10,8 @@ import GamesNavigation from '@/components/GamesNavigation.vue'
 
 export default {
   name: 'Home',
+  components: {
+    GamesNavigation,
+  },
 }
 </script>
