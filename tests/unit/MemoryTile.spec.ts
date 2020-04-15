@@ -31,5 +31,26 @@ describe('MemoryTile', () => {
 
             expect(points).toBe(MemoryTile.FULL_POINTS);
         });
+
+        it('should return less amount if it is the second try', () => {
+            const tile = new MemoryTile(1, 'a');
+            tile.increaseSelectionCount();
+
+            const points = tile.getPoints();
+
+            const expectedPoints = MemoryTile.FULL_POINTS * MemoryTile.POINTS_DECAY;
+            expect(Math.round(points)).toBe(Math.round(expectedPoints));
+        });
+
+        it('should return even less amount if it is the third try', () => {
+            const tile = new MemoryTile(1, 'a');
+            tile.increaseSelectionCount();
+            tile.increaseSelectionCount();
+
+            const points = tile.getPoints();
+
+            const expectedPoints = MemoryTile.FULL_POINTS * MemoryTile.POINTS_DECAY * MemoryTile.POINTS_DECAY;
+            expect(Math.round(points)).toBe(Math.round(expectedPoints));
+        });
     });
 });

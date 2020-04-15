@@ -3,6 +3,7 @@ import MemoryTileState from "@/games/memory/MemoryTileState";
 
 export default class MemoryTile {
     static FULL_POINTS: number = 100;
+    static POINTS_DECAY: number = .80;
 
     public readonly id: number;
     private readonly subject: any;
@@ -38,6 +39,8 @@ export default class MemoryTile {
     }
 
     getPoints() {
-        return MemoryTile.FULL_POINTS;
+        const decayByRetries = Math.pow(MemoryTile.POINTS_DECAY, this.selectionCount);
+
+        return MemoryTile.FULL_POINTS * decayByRetries;
     }
 }
