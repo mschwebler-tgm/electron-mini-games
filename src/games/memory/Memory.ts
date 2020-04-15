@@ -3,7 +3,7 @@ import MemorySelectionResult from "@/games/memory/MemorySelectionResult";
 
 export default class Memory {
     private tiles: MemoryTile[] = [];
-    private selectedTile: MemoryTile | null = null;
+    private firstSelectedTile: MemoryTile | null = null;
 
     constructor(subjects: any[]) {
         this.initializeTiles(subjects);
@@ -21,22 +21,32 @@ export default class Memory {
         array.sort(() => Math.random() - 0.5);
     }
 
+    select(id: number): MemorySelectionResult | never {
+        const tileToSelect = this.getTileById(id);
+        if (!this.firstSelectedTile) {
+            this.firstSelectedTile = tileToSelect;
+            return MemorySelectionResult.SECOND_PICK_PENDING;
+        } else {
+            let result = this.firstSelectedTile.compareTo(tileToSelect);
+            this.firstSelectedTile = null;
+            return result;
+        }
+    }
+
+    private getTileById(id: number): MemoryTile | never {
+        const tile = this.tiles.find(tile => tile.id === id);
+        if (!tile) {
+            throw new Error(`Tile with id ${id} does not exist`);
+        }
+
+        return tile;
+    }
+
     getTiles(): MemoryTile[] {
         return this.tiles;
     }
 
-    select(id: number): MemorySelectionResult | never {
-        const tileToSelect = this.tiles.find(tile => tile.id === id);
-        if (!tileToSelect) {
-            throw new Error(`Tile with id ${id} does not exist`);
-        }
-
-        this.selectedTile = tileToSelect;
-
-        return MemorySelectionResult.SECOND_PICK_PENDING;
-    }
-
     getSelected(): MemoryTile | null {
-        return this.selectedTile;
+        return this.firstSelectedTile;
     }
 }

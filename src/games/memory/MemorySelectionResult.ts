@@ -1,4 +1,6 @@
 enum MemorySelectionResult {
+    SUCCESS,
+    FAIL,
     SECOND_PICK_PENDING,
 }
 
