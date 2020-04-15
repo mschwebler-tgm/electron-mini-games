@@ -1,13 +1,12 @@
 import Memory from "@/games/memory/Memory";
-import MemoryTile from "@/games/memory/MemoryTile";
 
 describe('Memory', () => {
-    it('should hold memory tiles', () => {
-        const tiles = [new MemoryTile()];
-        const memory = new Memory(tiles);
+    it('should create memory tiles from array of subjects', () => {
+        const subjects = ['a', 'b', 'c'];
+        const memory = new Memory(subjects);
 
         const memoryTiles = memory.getTiles();
 
-        expect(memoryTiles).toStrictEqual(tiles);
+        expect(memoryTiles.length).toBe(subjects.length * 2);
     });
 });
