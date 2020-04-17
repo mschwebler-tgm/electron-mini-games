@@ -1,21 +1,47 @@
 <template>
     <div class="d-flex flex-wrap">
-        <MemoryTile></MemoryTile>
+        <MemoryCard
+                v-for="tile in tiles"
+                :key="tile.id"
+                :active="selectedTile === tile"
+                class="ma-3"
+                @select="select(tile)">
+            {{ tile.subject }}
+        </MemoryCard>
     </div>
 </template>
 
-<script lang="ts">
-    import MemoryTile from "./MemoryTile.vue";
+<script>
+    import MemoryCard from "./MemoryCard.vue";
+    import Memory from "@/components/games/memory/Memory";
 
     export default {
         name: "Memory",
-        components: {MemoryTile},
+        components: {MemoryCard},
         data() {
             return {
-                subjects: [
-                    'A', 'B', 'C'
-                ]
+                memory: null,
             }
+        },
+        created() {
+            this.memory = new Memory(['A', 'B', 'C']);
+        },
+        methods: {
+            select(tile) {
+                const result = this.memory.select(tile.id);
+            },
+        },
+        computed: {
+            tiles() {
+                return this.memory.getTiles();
+            },
+            selectedTile() {
+                try {
+                    return this.memory.getSelected();
+                } catch (e) {
+                    return null;
+                }
+            },
         },
     }
 </script>
