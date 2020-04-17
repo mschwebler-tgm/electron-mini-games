@@ -1,11 +1,21 @@
 <template>
     <div>
-        <div class="ma-3">
-            <span class="display-2">
-                Memory
-            </span>
-            <div class="headline mt-3 mb-3">
-                Points: {{ points }}
+        <div class="ma-3 d-flex justify-space-between">
+            <div>
+                <span class="display-2">
+                    Memory
+                </span>
+                <div class="headline mt-3 mb-3">
+                    Points: {{ points }}
+                </div>
+            </div>
+            <div>
+                <v-btn v-if="isCompleted" color="green">
+                    Neu starten
+                </v-btn>
+                <v-btn @click="shuffle">
+                    Mischen
+                </v-btn>
             </div>
         </div>
 
@@ -31,13 +41,10 @@
         components: {MemoryCard},
         data() {
             return {
-                memory: null,
+                memory: new Memory(['A', 'B']),
                 selected: [],
                 fieldIsLocked: false,
             }
-        },
-        created() {
-            this.memory = new Memory(['A', 'B', 'C']);
         },
         methods: {
             select(tile) {
@@ -58,6 +65,9 @@
                         this.fieldIsLocked = false;
                     }, 1000);
                 }
+            },
+            shuffle() {
+                this.memory.shuffle(this.memory.getTiles());
             },
             isTileActive(tile) {
                 return tile.isCompleted() || this.selected.includes(tile);
