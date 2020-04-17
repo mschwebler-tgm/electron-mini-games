@@ -72,4 +72,8 @@ export default class Memory {
                 return points + tile.getPoints();
             }, 0);
     }
+
+    isCompleted() {
+        return this.tiles.find(tile => !tile.isCompleted()) === undefined;
+    }
 }

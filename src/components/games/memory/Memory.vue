@@ -2,7 +2,7 @@
     <div>
         <div class="ma-3">
             <span class="display-2">
-                Memory Game
+                Memory
             </span>
             <div class="headline mt-3 mb-3">
                 Points: {{ points }}
@@ -63,12 +63,22 @@
                 return tile.isCompleted() || this.selected.includes(tile);
             },
         },
+        watch: {
+            isCompleted(isCompleted) {
+                if (isCompleted) {
+                    console.log('Completed!');
+                }
+            }
+        },
         computed: {
             tiles() {
                 return this.memory.getTiles();
             },
             points() {
                 return this.memory.getPoints();
+            },
+            isCompleted() {
+                return this.memory && this.memory.isCompleted();
             },
         },
     }
