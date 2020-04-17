@@ -1,13 +1,24 @@
 <template>
-    <div class="d-flex flex-wrap">
-        <MemoryCard
-                v-for="tile in tiles"
-                :key="tile.id"
-                :active="isTileActive(tile)"
-                class="ma-3"
-                @select="select(tile)">
-            {{ tile.subject }}
-        </MemoryCard>
+    <div>
+        <div class="ma-3">
+            <span class="display-2">
+                Memory Game
+            </span>
+            <div class="headline mt-3 mb-3">
+                Points: {{ points }}
+            </div>
+        </div>
+
+        <div class="d-flex flex-wrap">
+            <MemoryCard
+                    v-for="tile in tiles"
+                    :key="tile.id"
+                    :active="isTileActive(tile)"
+                    class="ma-3"
+                    @select="select(tile)">
+                {{ tile.subject }}
+            </MemoryCard>
+        </div>
     </div>
 </template>
 
@@ -56,10 +67,9 @@
             tiles() {
                 return this.memory.getTiles();
             },
+            points() {
+                return this.memory.getPoints();
+            },
         },
     }
 </script>
-
-<style scoped>
-
-</style>

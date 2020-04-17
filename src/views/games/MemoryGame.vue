@@ -1,14 +1,6 @@
 <template>
     <div>
-        <span class="headline">
-            Memory Game
-        </span>
-        <div class="points">
-            Points
-        </div>
-        <div class="game">
-            <Memory></Memory>
-        </div>
+        <Memory></Memory>
     </div>
 </template>
 
@@ -19,8 +11,3 @@
         components: {Memory}
     }
 </script>
-
-<style scoped lang="scss">
-    .points {
-    }
-</style>
