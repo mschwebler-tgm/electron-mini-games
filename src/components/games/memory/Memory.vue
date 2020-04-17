@@ -31,6 +31,8 @@
                     :active="isTileActive(tile)"
                     class="ma-3"
                     @select="select(tile)">
+                <img :src="tile.subject.imageSrc"
+                     class="tile-image">
                 {{ tile.subject }}
             </MemoryCard>
         </transition-group>
@@ -38,6 +40,8 @@
 </template>
 
 <script>
+    import fs from 'fs';
+
     import MemoryCard from "./MemoryCard.vue";
     import Memory from "@/components/games/memory/Memory";
 
@@ -56,7 +60,15 @@
         },
         methods: {
             initMemory() {
-                this.memory = new Memory(['A', 'B']);
+                fs.readdir('public/memory', (err, files) => {
+                    const memorySubjects = files.map(fileName => {
+                        const path = '/memory/' + fileName;
+                        return {
+                            imageSrc: path,
+                        };
+                    });
+                    this.memory = new Memory(memorySubjects);
+                });
             },
             select(tile) {
                 if (this.fieldIsLocked) {
@@ -93,10 +105,10 @@
         },
         computed: {
             tiles() {
-                return this.memory.getTiles();
+                return this.memory ? this.memory.getTiles() : [];
             },
             points() {
-                return this.memory.getPoints();
+                return this.memory ? this.memory.getPoints() : 0;
             },
             isCompleted() {
                 return this.memory && this.memory.isCompleted();
@@ -108,5 +120,11 @@
 <style scoped>
     .tile-list-animation-move {
         transition: transform 1s;
+    }
+
+    .tile-image {
+        object-fit: cover;
+        width: 100%;
+        height: 250px;
     }
 </style>

@@ -15,6 +15,7 @@
   "dependencies": {
     "@mdi/font": "^3.6.95",
     "core-js": "^3.6.4",
+    "fs": "0.0.1-security",
     "roboto-fontface": "*",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
