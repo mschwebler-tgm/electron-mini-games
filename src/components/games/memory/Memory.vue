@@ -22,7 +22,9 @@
             </div>
         </div>
 
-        <div class="d-flex flex-wrap">
+        <transition-group name="tile-list-animation"
+                          class="d-flex flex-wrap"
+                          tag="div">
             <MemoryCard
                     v-for="tile in tiles"
                     :key="tile.id"
@@ -31,7 +33,7 @@
                     @select="select(tile)">
                 {{ tile.subject }}
             </MemoryCard>
-        </div>
+        </transition-group>
     </div>
 </template>
 
@@ -102,3 +104,9 @@
         },
     }
 </script>
+
+<style scoped>
+    .tile-list-animation-move {
+        transition: transform 1s;
+    }
+</style>
