@@ -71,9 +71,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
     }
 
     .flip-card-back {
         transform: rotateY(180deg);
+        cursor: pointer;
     }
 </style>

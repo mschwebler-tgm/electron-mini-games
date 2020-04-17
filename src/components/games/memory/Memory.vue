@@ -3,7 +3,7 @@
         <MemoryCard
                 v-for="tile in tiles"
                 :key="tile.id"
-                :active="selectedTile === tile"
+                :active="isTileActive(tile)"
                 class="ma-3"
                 @select="select(tile)">
             {{ tile.subject }}
@@ -21,6 +21,8 @@
         data() {
             return {
                 memory: null,
+                selected: [],
+                fieldIsLocked: false,
             }
         },
         created() {
@@ -28,19 +30,31 @@
         },
         methods: {
             select(tile) {
-                const result = this.memory.select(tile.id);
+                if (this.fieldIsLocked) {
+                    return;
+                }
+
+                this.fieldIsLocked = true;
+                this.selected.push(tile);
+                if (this.selected.length === 1) {
+                    this.memory.select(tile.id);
+                    this.fieldIsLocked = false;
+                } else {
+                    setTimeout(() => {
+                        const result = this.memory.select(tile.id);
+                        this.selected = [];
+                        console.log(result);
+                        this.fieldIsLocked = false;
+                    }, 1000);
+                }
+            },
+            isTileActive(tile) {
+                return tile.isCompleted() || this.selected.includes(tile);
             },
         },
         computed: {
             tiles() {
                 return this.memory.getTiles();
-            },
-            selectedTile() {
-                try {
-                    return this.memory.getSelected();
-                } catch (e) {
-                    return null;
-                }
             },
         },
     }
