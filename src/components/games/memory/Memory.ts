@@ -1,5 +1,5 @@
-import MemoryTile from "@/games/memory/MemoryTile";
-import MemorySelectionResult from "@/games/memory/MemorySelectionResult";
+import MemoryTile from "@/components/games/memory/MemoryTile";
+import MemorySelectionResult from "@/components/games/memory/MemorySelectionResult";
 
 export default class Memory {
     private tiles: MemoryTile[] = [];

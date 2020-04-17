@@ -1,5 +1,5 @@
-import MemorySelectionResult from "@/games/memory/MemorySelectionResult";
-import MemoryTileState from "@/games/memory/MemoryTileState";
+import MemorySelectionResult from "@/components/games/memory/MemorySelectionResult";
+import MemoryTileState from "@/components/games/memory/MemoryTileState";
 
 export default class MemoryTile {
     static FULL_POINTS: number = 100;

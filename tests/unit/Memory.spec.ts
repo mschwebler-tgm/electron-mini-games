@@ -1,7 +1,7 @@
-import Memory from "@/games/memory/Memory";
-import MemorySelectionResult from "@/games/memory/MemorySelectionResult";
-import MemoryTileState from "@/games/memory/MemoryTileState";
-import MemoryTile from "@/games/memory/MemoryTile";
+import Memory from "@/components/games/memory/Memory";
+import MemorySelectionResult from "@/components/games/memory/MemorySelectionResult";
+import MemoryTileState from "@/components/games/memory/MemoryTileState";
+import MemoryTile from "@/components/games/memory/MemoryTile";
 
 describe('Memory', () => {
     const DUMMY_SUBJECTS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
