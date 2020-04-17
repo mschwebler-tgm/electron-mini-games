@@ -10,7 +10,10 @@
                 </div>
             </div>
             <div>
-                <v-btn v-if="isCompleted" color="green">
+                <v-btn v-if="isCompleted"
+                       color="green"
+                       class="mr-3"
+                       @click="initMemory">
                     Neu starten
                 </v-btn>
                 <v-btn @click="shuffle">
@@ -41,12 +44,18 @@
         components: {MemoryCard},
         data() {
             return {
-                memory: new Memory(['A', 'B']),
+                memory: null,
                 selected: [],
                 fieldIsLocked: false,
             }
         },
+        created() {
+            this.initMemory();
+        },
         methods: {
+            initMemory() {
+                this.memory = new Memory(['A', 'B']);
+            },
             select(tile) {
                 if (this.fieldIsLocked) {
                     return;
