@@ -37,6 +37,8 @@
                 {{ tile.subject }}
             </MemoryCard>
         </transition-group>
+
+        <Firework v-if="isCompleted"></Firework>
     </div>
 </template>
 
@@ -45,10 +47,11 @@
     import Memory from "@/components/games/memory/Memory";
     import images from './images';
     import MemoryPoints from "./MemoryPoints";
+    import Firework from "../../Firework";
 
     export default {
         name: "Memory",
-        components: {MemoryPoints, MemoryCard},
+        components: {Firework, MemoryPoints, MemoryCard},
         data() {
             return {
                 memory: null,
