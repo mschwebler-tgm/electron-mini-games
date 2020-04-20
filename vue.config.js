@@ -8,4 +8,10 @@ module.exports = {
             },
         },
     },
+    chainWebpack: config => {
+        config.module
+            .rule('images')
+            .test(/\.(?:png|jpg|svg)$/)
+            .use('url-loader')
+    },
 };

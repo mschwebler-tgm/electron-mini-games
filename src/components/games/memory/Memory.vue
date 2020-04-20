@@ -40,10 +40,9 @@
 </template>
 
 <script>
-    import fs from 'fs';
-
     import MemoryCard from "./MemoryCard.vue";
     import Memory from "@/components/games/memory/Memory";
+    import images from './images';
 
     export default {
         name: "Memory",
@@ -60,15 +59,7 @@
         },
         methods: {
             initMemory() {
-                fs.readdir('public/memory', (err, files) => {
-                    const memorySubjects = files.map(fileName => {
-                        const path = '/memory/' + fileName;
-                        return {
-                            imageSrc: path,
-                        };
-                    });
-                    this.memory = new Memory(memorySubjects);
-                });
+                this.memory = new Memory(images.map(image => ({imageSrc: image})));
             },
             select(tile) {
                 if (this.fieldIsLocked) {
