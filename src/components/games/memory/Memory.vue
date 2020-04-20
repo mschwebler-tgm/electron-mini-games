@@ -5,9 +5,6 @@
                 <span class="display-2">
                     Memory
                 </span>
-                <div class="headline mt-3 mb-3">
-                    Points: {{ points }}
-                </div>
             </div>
             <div>
                 <v-btn v-if="isCompleted"
@@ -20,6 +17,10 @@
                     Mischen
                 </v-btn>
             </div>
+        </div>
+
+        <div class="d-flex justify-center mt-3 mb-3" style="min-height: 55px;">
+            <MemoryPoints :points="points"></MemoryPoints>
         </div>
 
         <transition-group name="tile-list-animation"
@@ -43,10 +44,11 @@
     import MemoryCard from "./MemoryCard.vue";
     import Memory from "@/components/games/memory/Memory";
     import images from './images';
+    import MemoryPoints from "./MemoryPoints";
 
     export default {
         name: "Memory",
-        components: {MemoryCard},
+        components: {MemoryPoints, MemoryCard},
         data() {
             return {
                 memory: null,
