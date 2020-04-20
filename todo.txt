@@ -1,0 +1,2 @@
+Add images and color to memory.
+Make memory tiles responsive.
